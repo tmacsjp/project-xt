@@ -4,6 +4,7 @@ using OA.API.Interface;
 using OA.API.Model;
 using OA.API.Models;
 using OA.Core;
+using OA.Core.Tools;
 using System.Net;
 using System.Text;
 
@@ -23,7 +24,9 @@ namespace OA.API.Middleware
         {
             try
             {
-                var endpoint = context.Features.Get<IEndpointFeature>()?.Endpoint;
+                //Features是获取请求上服务器和中间件提供的http特性的集合
+                //获取终节点的http特性
+                var endpoint = context.GetEndpoint();//context.Features.Get<IEndpointFeature>()?.Endpoint;
                 //终节点需要性判断
                 if (endpoint == null)
                 {

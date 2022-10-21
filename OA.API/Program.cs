@@ -6,6 +6,8 @@ using OA.API.Filter;
 using OA.API.Interface;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using OA.API.Filter.Authorization;
+using OA.Application;
+using OA.Core.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -15,6 +17,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddModuleAllOpenApi(typeof(InformTypeService));
+builder.Services.AddModuleAllToDI(typeof(InformTypeService));
 
 builder.Services.AddScoped<IInformRepository, InformRepository>();
 builder.Services.AddSingleton<IReqeustJsonBodyReader, DefaultRequestJsonBodyReader>();

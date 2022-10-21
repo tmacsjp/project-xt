@@ -896,5 +896,20 @@ namespace OA.Core
             return enc.GetString(data);
         }
 
+        public static string GetOpenServiceApiName(this Type type)
+        {
+            bool removeI = false;
+            if (type.IsInterface)
+            {
+                removeI = true;
+            }
+            var name = type.Name;
+            if (removeI && name.StartsWith("I"))
+                name = name.Substring(1);
+            if (name.EndsWith("Service"))
+                name = name.Substring(0, name.Length - "Service".Length);
+            return name;
+        }
+
     }
 }
