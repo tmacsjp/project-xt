@@ -13,7 +13,7 @@ namespace OA.Domain.Inform
     public class InformModel
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("phid")]
         public virtual long PhId { get; set; }
 

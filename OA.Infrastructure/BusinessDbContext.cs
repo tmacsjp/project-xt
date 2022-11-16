@@ -13,6 +13,8 @@ namespace OA.Infrastructure
     {
         public DbSet<InformModel> InformModels { get; set; }
 
+        public DbSet<InformType> InformTypes { get; set; }
+
         public BusinessDbContext(DbContextOptions<BusinessDbContext> options) : base(options)
         {
 

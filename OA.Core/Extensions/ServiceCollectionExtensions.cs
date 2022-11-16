@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationParts;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using OA.Core.ApplicationToController;
@@ -41,7 +42,6 @@ namespace OA.Core.Extensions
                 options.ApplicationParts.Add(new AssemblyPart(typeOfModule.Assembly));
             });
         }
-
 
     }
 }

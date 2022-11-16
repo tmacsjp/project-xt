@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace OA.Domain.Inform
 {
-    [MyTable("informtype", null, true, true)]
+    [MyTable("inform_type", null, true, true)]
     public class InformType
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Column("phid")]
         public virtual long PhId { get; set; }
 

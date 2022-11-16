@@ -17,11 +17,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 
+//设置application 映射未controller
 builder.Services.AddModuleAllOpenApi(typeof(InformTypeService));
+//映射该项目所在的service和iservice注入到容器中
 builder.Services.AddModuleAllToDI(typeof(InformTypeService));
 
 builder.Services.AddScoped<IInformRepository, InformRepository>();
 builder.Services.AddSingleton<IReqeustJsonBodyReader, DefaultRequestJsonBodyReader>();
+//模型校验和过滤器处理
 builder.Services.AddControllers(x =>
 {
     x.ModelBinderProviders.Insert(0, new ApiModelBindProvider());
@@ -32,10 +35,13 @@ builder.Services.AddControllers(x =>
     x.Filters.Add<ApiExceptionFilter>();
 });
 //.AddJsonOptions(x => x.JsonSerializerOptions.Converters.Insert(0, new TextJsonDateTimeConverter() { }));
+//自定义授权处理
 builder.Services.TryAddEnumerable(new ServiceDescriptor(typeof(IAuthorizeAction), typeof(TimestampAuthorizeAction), ServiceLifetime.Singleton));
 builder.Services.TryAddSingleton<IAuthorizeProvider, AuthorizeProvider>();
-
 builder.Services.AddSwaggerGen();
+//生成sql语句处理
+builder.Services.AddTransient<ISeedDataGenerator, BusinessSeedDataGenerator>();
+//dbcontext
 builder.Services.AddDbContext<BusinessDbContext>(builder =>
 {
     var sqlconn = configuration.GetConnectionString("SqlServerConnection");
@@ -58,5 +64,5 @@ app.UseMiddleware<ApiProtocolMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.GenerateSeedData();
 app.Run();
